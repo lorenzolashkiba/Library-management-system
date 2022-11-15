@@ -15,7 +15,7 @@
 	<body>
 		<form class="cd-form" method="POST" action="#">
 			<legend>Enter the details</legend>
-			
+			    
 				<div class="error-message" id="error-message">
 					<p id="error"></p>
 				</div>

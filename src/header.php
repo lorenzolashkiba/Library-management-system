@@ -5,12 +5,13 @@
 	</head>
 	<body>
 		<header>
-			<a href="./">
+			<a href="/library/Library-management-system/src/">
 				<div id="cd-logo">
 					<img src="img/ic_logo.svg" alt="Logo" />
 					<p>LIBRARY</p>
 				</div>
 			</a>
+			
 		</header>
 	</body>
 </html>

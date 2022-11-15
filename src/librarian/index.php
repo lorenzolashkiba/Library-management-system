@@ -7,7 +7,7 @@
 
 <html>
 	<head>
-		<title>Librarian Login</title>
+		<title>Libraio Login</title>
 		<link rel="stylesheet" type="text/css" href="../css/global_styles.css">
 		<link rel="stylesheet" type="text/css" href="../css/form_styles.css">
 		<link rel="stylesheet" type="text/css" href="css/index_style.css">
@@ -15,7 +15,7 @@
 	<body>
 		<form class="cd-form" method="POST" action="#">
 		
-		<legend>Librarian Login</legend>
+		<legend>Libraio Login</legend>
 		
 			<div class="error-message" id="error-message">
 				<p id="error"></p>
@@ -35,8 +35,11 @@
 	</body>
 	
 	<?php
+	//controllo delle credenziali login 
 		if(isset($_POST['l_login']))
-		{
+		{	
+			// crazione query per trovare i valori nel db, se trova qualcosa ritornera 1 se no diverso da 0
+			//se li trova sarai rendirizzato alla home page del librario 
 			$query = $con->prepare("SELECT id FROM librarian WHERE username = ? AND password = ?;");
 			$query->bind_param("ss", $_POST['l_user'], sha1($_POST['l_pass']));
 			$query->execute();

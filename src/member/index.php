@@ -51,15 +51,13 @@
 			{
 				$resultRow = mysqli_fetch_array($result);
 				$balance = $resultRow[1];
-				if($balance < 0)
-					echo error_without_field("Your account has been suspended. Please contact a librarian for further information");
-				else
-				{
-					$_SESSION['type'] = "member";
-					$_SESSION['id'] = $resultRow[0];
-					$_SESSION['username'] = $_POST['m_user'];
-					header('Location: home.php');
-				}
+			
+				
+				$_SESSION['type'] = "member";
+				$_SESSION['id'] = $resultRow[0];
+				$_SESSION['username'] = $_POST['m_user'];
+				header('Location: home.php');
+			
 			}
 		}
 	?>

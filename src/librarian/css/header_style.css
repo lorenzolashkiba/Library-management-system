@@ -22,7 +22,7 @@ img {
 
 header {
   position: relative;
-  height: 50px;
+  height: 100px;
   background: #343642;
 }
 
@@ -62,7 +62,7 @@ header::after {
 
 @media only screen and (min-width: 768px) {
   header {
-    height: 80px;
+    height: 100px;
   }
   header #cd-logo {
     margin: 4px 0 0 5%;

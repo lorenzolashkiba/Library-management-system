@@ -23,9 +23,6 @@
 			<a href="update_copies.php">
 				<input type="button" value="Update copies of a book" />
 			</a><br />
-			<a href="update_balance.php">
-				<input type="button" value="Update balance of a member" />
-			</a><br />
 			<a href="due_handler.php">
 				<input type="button" value="Reminders for today" />
 			</a><br /><br />

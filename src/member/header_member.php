@@ -17,15 +17,6 @@
 					<p id="librarian-name"><?php echo $_SESSION['username'] ?></p>
 				</button>
 				<div class="dropdown-content">
-					<a>
-						<?php
-							$query = $con->prepare("SELECT balance FROM member WHERE username = ?;");
-							$query->bind_param("s", $_SESSION['username']);
-							$query->execute();
-							$balance = (int)$query->get_result()->fetch_array()[0];
-							echo "Balance: $".$balance;
-						?>
-					</a>
 					<a href="my_books.php">My books</a>
 					<a href="../logout.php">Logout</a>
 				</div>

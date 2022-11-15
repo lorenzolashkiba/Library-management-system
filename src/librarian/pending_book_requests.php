@@ -22,11 +22,12 @@
 				echo "<h2 align='center'>No requests pending</h2>";
 			else
 			{
-				echo "<form class='cd-form' method='POST' action='#'>";
+				$serverName =$_SERVER['PHP_SELF'];
+				echo "<form class='cd-form' method='POST' action='$serverName'>";
 				echo "<legend>Pending book requests</legend>";
 				echo "<div class='error-message' id='error-message'>
 						<p id='error'></p>
-					</div>";
+					</div>"; 
 				echo "<table width='100%' cellpadding=10 cellspacing=10>
 						<tr>
 							<th></th>

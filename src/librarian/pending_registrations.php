@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<?php
-			$query = $con->prepare("SELECT username, name, email, balance FROM pending_registrations");
+			$query = $con->prepare("SELECT username, name, email FROM pending_registrations");
 			$query->execute();
 			$result = $query->get_result();
 			$rows = mysqli_num_rows($result);
@@ -33,7 +33,7 @@
 							<th>Username<hr></th>
 							<th>Name<hr></th>
 							<th>Email<hr></th>
-							<th>Balance<hr></th>
+						
 						</tr>";
 				for($i=0; $i<$rows; $i++)
 				{
@@ -48,7 +48,7 @@
 					$j;
 					for($j=0; $j<3; $j++)
 						echo "<td>".$row[$j]."</td>";
-					echo "<td>$".$row[$j]."</td>";
+					echo "<td>".$row[$j]."</td>";
 					echo "</tr>";
 				}
 				echo "</table><br /><br />";
@@ -74,8 +74,8 @@
 						$query->execute();
 						$row = mysqli_fetch_array($query->get_result());
 						
-						$query = $con->prepare("INSERT INTO member(username, password, name, email, balance) VALUES(?, ?, ?, ?, ?);");
-						$query->bind_param("ssssd", $username, $row[1], $row[2], $row[3], $row[4]);
+						$query = $con->prepare("INSERT INTO member (username, password, name, email) VALUES(?, ?, ?, ?);");
+						$query->bind_param("ssss", $username, $row[1], $row[2], $row[3]);
 						if(!$query->execute())
 							die(error_without_field("ERROR: Couldn\'t insert values"));
 						$members++;

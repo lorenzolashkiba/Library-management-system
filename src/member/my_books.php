@@ -95,20 +95,7 @@
 						
 						if($days > 0)
 						{
-							$penalty = 5*$days;
-							$query = $con->prepare("SELECT price FROM book WHERE isbn = ?;");
-							$query->bind_param("s", $_POST['cb_book'.$i]);
-							$query->execute();
-							$price = mysqli_fetch_array($query->get_result())[0];
-							if($price < $penalty)
-								$penalty = $price;
-							$query = $con->prepare("UPDATE member SET balance = balance - ? WHERE username = ?;");
-							$query->bind_param("ds", $penalty, $_SESSION['username']);
-							$query->execute();
-							echo '<script>
-									document.getElementById("error").innerHTML += "A penalty of Rs. '.$penalty.' was charged for keeping book '.$_POST['cb_book'.$i].' for '.$days.' days after the due date.<br />";
-									document.getElementById("error-message").style.display = "block";
-								</script>';
+							
 						}
 						$books++;
 					}
@@ -118,13 +105,7 @@
 							document.getElementById("success").innerHTML = "Successfully returned '.$books.' books";
 							document.getElementById("success-message").style.display = "block";
 						</script>';
-					$query = $con->prepare("SELECT balance FROM member WHERE username = ?;");
-					$query->bind_param("s", $_SESSION['username']);
-					$query->execute();
 					
-					$balance = (int)mysqli_fetch_array($query->get_result())[0];
-					if($balance < 0)
-						header("Location: ../logout.php");
 				}
 				else
 					echo error_without_field("Please select a book to return");
