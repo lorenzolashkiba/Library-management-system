@@ -7,6 +7,3 @@ features
 * Automatic penalty deduction on returning a book after the due date
 
 **Note:** Please use the username *genesis* and password *librarian* for logging into the Librarian portal
-
-# Screenshots
-![](https://github.com/psyclone20/Library/blob/master/screenshots/1.%20home.png) ![](https://github.com/psyclone20/Library/blob/master/screenshots/2.%20member_login.png) ![](https://github.com/psyclone20/Library/blob/master/screenshots/3.%20member_registration1.png) ![](https://github.com/psyclone20/Library/blob/master/screenshots/4.%20member_registration2.png) ![](https://github.com/psyclone20/Library/blob/master/screenshots/5.%20member_registration3.png)
