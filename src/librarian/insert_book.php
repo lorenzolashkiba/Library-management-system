@@ -7,14 +7,14 @@
 
 <html>
 	<head>
-		<title>Add book</title>
+		<title>Aggiungi Libro</title>
 		<link rel="stylesheet" type="text/css" href="../css/global_styles.css" />
 		<link rel="stylesheet" type="text/css" href="../css/form_styles.css" />
 		<link rel="stylesheet" href="css/insert_book_style.css">
 	</head>
 	<body>
 		<form class="cd-form" method="POST" action="#">
-			<legend>Enter book details</legend>
+			<legend>Entra i dettagli del libro</legend>
 			
 				<div class="error-message" id="error-message">
 					<p id="error"></p>
@@ -25,15 +25,15 @@
 				</div>
 				
 				<div class="icon">
-					<input class="b-title" type="text" name="b_title" placeholder="Title" required />
+					<input class="b-title" type="text" name="b_title" placeholder="Titolo" required />
 				</div>
 				
 				<div class="icon">
-					<input class="b-author" type="text" name="b_author" placeholder="Author" required />
+					<input class="b-author" type="text" name="b_author" placeholder="Autore" required />
 				</div>
 				
 				<div>
-				<h4>Category</h4>
+				<h4>Categoria</h4>
 				
 					<p class="cd-select icon">
 						<select class="b-category" name="b_category">
@@ -45,11 +45,11 @@
 				</div>
 				
 				<div class="icon">
-					<input class="b-copies" type="number" name="b_copies" placeholder="Copies" required />
+					<input class="b-copies" type="number" name="b_copies" placeholder="Copie" required />
 				</div>
 				
 				<br />
-				<input class="b-isbn" type="submit" name="b_add" value="Add book" />
+				<input class="b-isbn" type="submit" name="b_add" value="Aggiungi libro" />
 		</form>
 	<body>
 	
@@ -62,15 +62,15 @@
 			$query->execute();
 			
 			if(mysqli_num_rows($query->get_result()) != 0)
-				echo error_with_field("A book with that ISBN already exists", "b_isbn");
+				echo error_with_field("Un Libro con quel ISBN esiste già", "b_isbn");
 			else
 			{
 				$query = $con->prepare("INSERT INTO book VALUES(?, ?, ?, ?, ?);");
 				$query->bind_param("ssssd", $_POST['b_isbn'], $_POST['b_title'], $_POST['b_author'], $_POST['b_category'], $_POST['b_copies']);
 				
 				if(!$query->execute())
-					die(error_without_field("ERROR: Couldn't add book"));
-				echo success("Successfully added book");
+					die(error_without_field("ERROR: Operazione non riuscita"));
+				echo success("Libro aggiunto!");
 			}
 		}
 	?>

@@ -21,11 +21,11 @@
 				die("ERROR: Couldn't fetch books");
 			$rows = mysqli_num_rows($result);
 			if($rows == 0)
-				echo "<h2 align='center'>No books available</h2>";
+				echo "<h2 align='center'>Nessun libro disponibile</h2>";
 			else
 			{
 				echo "<form class='cd-form' method='POST' action='#'>";
-				echo "<legend>Available books</legend>";
+				echo "<legend>Libri disponibili</legend>";
 				echo "<div class='error-message' id='error-message'>
 						<p id='error'></p>
 					</div>";
@@ -33,11 +33,10 @@
 				echo "<tr>
 						<th></th>
 						<th>ISBN<hr></th>
-						<th>Title<hr></th>
-						<th>Author<hr></th>
-						<th>Category<hr></th>
-						<th>Price<hr></th>
-						<th>Copies available<hr></th>
+						<th>Titoli<hr></th>
+						<th>Autori<hr></th>
+						<th>Genere<hr></th>
+						<th>Copie disponibili<hr></th>
 					</tr>";
 				for($i=0; $i<$rows; $i++)
 				{
@@ -45,25 +44,25 @@
 					echo "<tr>
 							<td>
 								<label class='control control--radio'>
-									<input type='radio' name='rd_book' value=".$row[0]." />
+									<input type='radio' name='rd_book' value=".$row[0]." />	
 								<div class='control__indicator'></div>
 							</td>";
-					for($j=0; $j<6; $j++)
+					for($j=0; $j<5; $j++)
 						if($j == 4)
-							echo "<td>$".$row[$j]."</td>";
+							echo "<td>".$row[$j]."</td>";
 						else
 							echo "<td>".$row[$j]."</td>";
 					echo "</tr>";
 				}
 				echo "</table>";
-				echo "<br /><br /><input type='submit' name='m_request' value='Request book' />";
+				echo "<br /><br /><input type='submit' name='m_request' value='Richiedi libro' />";
 				echo "</form>";
 			}
 			
 			if(isset($_POST['m_request']))
 			{
 				if(empty($_POST['rd_book']))
-					echo error_without_field("Please select a book to issue");
+					echo error_without_field("Seleziona un libro da richiedere");
 				else
 				{
 					$query = $con->prepare("SELECT copies FROM book WHERE isbn = ?;");
@@ -71,14 +70,14 @@
 					$query->execute();
 					$copies = mysqli_fetch_array($query->get_result())[0];
 					if($copies == 0)
-						echo error_without_field("No copies of the selected book are available");
+						echo error_without_field("Nessuna copia di questo libro è disponibile");
 					else
 					{
 						$query = $con->prepare("SELECT request_id FROM pending_book_requests WHERE member = ?;");
 						$query->bind_param("s", $_SESSION['username']);
 						$query->execute();
-						if(mysqli_num_rows($query->get_result()) == 1)
-							echo error_without_field("You can only request one book at a time");
+						if(mysqli_num_rows($query->get_result()) >4)
+							echo error_without_field("Puoi richiedere soltanto 4 libri alla volta");
 						else
 						{
 							$query = $con->prepare("SELECT book_isbn FROM book_issue_log WHERE member = ?;");
@@ -86,7 +85,7 @@
 							$query->execute();
 							$result = $query->get_result();
 							if(mysqli_num_rows($result) >= 3)
-								echo error_without_field("You cannot issue more than 3 books at a time");
+								echo error_without_field("Non puoi richiedere piu di 3 libri alla volta");
 							else
 							{
 								$rows = mysqli_num_rows($result);
@@ -94,29 +93,16 @@
 									if(strcmp(mysqli_fetch_array($result)[0], $_POST['rd_book']) == 0)
 										break;
 								if($i < $rows)
-									echo error_without_field("You have already issued a copy of this book");
+									echo error_without_field("hai già richiesto questo libro");
 								else
 								{
-									$query = $con->prepare("SELECT balance FROM member WHERE username = ?;");
-									$query->bind_param("s", $_SESSION['username']);
-									$query->execute();
-									$memberBalance = mysqli_fetch_array($query->get_result())[0];
-									
-									$query = $con->prepare("SELECT price FROM book WHERE isbn = ?;");
-									$query->bind_param("s", $_POST['rd_book']);
-									$query->execute();
-									$bookPrice = mysqli_fetch_array($query->get_result())[0];
-									if($memberBalance < $bookPrice)
-										echo error_without_field("You do not have sufficient balance to issue this book");
+									$query = $con->prepare("INSERT INTO pending_book_requests(member, book_isbn) VALUES(?, ?);");
+									$query->bind_param("ss", $_SESSION['username'], $_POST['rd_book']);
+									if(!$query->execute())
+										echo error_without_field("ERROR: Couldn\'t request book");
 									else
-									{
-										$query = $con->prepare("INSERT INTO pending_book_requests(member, book_isbn) VALUES(?, ?);");
-										$query->bind_param("ss", $_SESSION['username'], $_POST['rd_book']);
-										if(!$query->execute())
-											echo error_without_field("ERROR: Couldn\'t request book");
-										else
-											echo success("Book successfully requested. You will be notified by email when the book is issued to your account");
-									}
+										echo success("Correttamente richiesto il libro. Sarai notificato da una email qundo la tua richiesta sarà accettata");
+								
 								}
 							}
 						}

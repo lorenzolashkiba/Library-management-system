@@ -21,14 +21,14 @@
 			$successfulEmails = 0;
 			$idArray;
 			$header = 'From: <noreply@library.com>' . "\r\n";
-			$subject = "Return your book today";
+			$subject = "Ritorna il tuo libro oggi";
 			$query = "";
 		
 			for($i=0; $i<$rows; $i++)
 			{
 				$row = mysqli_fetch_array($result);
 				$to = $row[1];
-				$message = "This is a reminder to return the book '".$row[3]."' with ISBN ".$row[2]." to the library.";
+				$message = "Questo è un promemoria per ritornare il libro '".$row[3]."' con ISBN ".$row[2]." alla libreria.";
 				if(mail($to, $subject, $message, $header) != FALSE)
 				{
 					$idArray[$i] = $row[0];
@@ -47,12 +47,12 @@
 			}
 			
 			if($successfulEmails > 0)
-				echo "<h2 align='center'>Successfully notified ".$successfulEmails." members</h2>";
+				echo "<h2 align='center'>Correttamente norificato ".$successfulEmails." membri</h2>";
 			else
-				echo "ERROR: Couldn't notify any member.";
+				echo "ERROR:  Impossibile norificare il membro";
 		}
 		else
-			echo "<h2 align='center'>No reminders pending</h2>";
+			echo "<h2 align='center'>Nessun promemoria</h2>";
 	?>
 	</body>
 </html>

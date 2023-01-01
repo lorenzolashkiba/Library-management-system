@@ -19,11 +19,11 @@
 			$result = $query->get_result();
 			$rows = mysqli_num_rows($result);
 			if($rows == 0)
-				echo "<h2 align='center'>No registrations pending</h2>";
+				echo "<h2 align='center'>Nessuna registrazione in attesa</h2>";
 			else
 			{
 				echo "<form class='cd-form' method='POST' action='#'>";
-				echo "<legend>Pending registrations</legend>";
+				echo "<legend>Registrazioni in attesa</legend>";
 				echo "<div class='error-message' id='error-message'>
 						<p id='error'></p>
 					</div>";
@@ -53,8 +53,8 @@
 				}
 				echo "</table><br /><br />";
 				echo "<div style='float: right;'>";
-				echo "<input type='submit' value='Delete selected' name='l_delete' />&nbsp;&nbsp;&nbsp;&nbsp;";
-				echo "<input type='submit' value='Confirm selected' name='l_confirm' />";
+				echo "<input type='submit' value='Elimina selezionato' name='l_delete' />&nbsp;&nbsp;&nbsp;&nbsp;";
+				echo "<input type='submit' value='Conferma selezionato' name='l_confirm' />";
 				echo "</div>";
 				echo "</form>";
 			}
@@ -77,19 +77,19 @@
 						$query = $con->prepare("INSERT INTO member (username, password, name, email) VALUES(?, ?, ?, ?);");
 						$query->bind_param("ssss", $username, $row[1], $row[2], $row[3]);
 						if(!$query->execute())
-							die(error_without_field("ERROR: Couldn\'t insert values"));
+							die(error_without_field("ERROR: Non è stato possibile inserire i valori"));
 						$members++;
 						
 						$to = $row[3];
-						$subject = "Library membership accepted";
-						$message = "Your membership has been accepted by the library. You can now issue books using your account.";
+						$subject = "Sei diventato un membro!!";
+						$message = "La tua registrazione è stata accettata dalla libreria. adesso puoi richiedere un libro attraverso questo account.";
 						mail($to, $subject, $message, $header);
 					}
 				}
 				if($members > 0)
-					echo success("Successfully added ".$members." members");
+					echo success("Correttamente aggiunto ".$members." ");
 				else
-					echo error_without_field("No registration selected");
+					echo error_without_field("Nessuna registrazione selezionata ");
 			}
 			
 			if(isset($_POST['l_delete']))
@@ -108,19 +108,19 @@
 						$query = $con->prepare("DELETE FROM pending_registrations WHERE username = ?;");
 						$query->bind_param("s", $username);
 						if(!$query->execute())
-							die(error_without_field("ERROR: Couldn\'t delete values"));
+							die(error_without_field("ERROR: Non è stato possibile eliminare i valori"));
 						$requests++;
 						
 						$to = $email;
-						$subject = "Library membership rejected";
-						$message = "Your membership has been rejected by the library. Please contact a librarian for further information.";
+						$subject = "Registrazione rifiutata";
+						$message = "La tua registrazione non è stata accettata dalla libreria. puoi contattare la libreria per maggiori dettagli";
 						mail($to, $subject, $message, $header);
 					}
 				}
 				if($requests > 0)
-					echo success("Successfully deleted ".$requests." requests");
+					echo success("Correttamente rifiutato".$requests);
 				else
-					echo error_without_field("No registration selected");
+					echo error_without_field("Nessuna registrazione accettata");
 			}
 		?>
 	</body>
