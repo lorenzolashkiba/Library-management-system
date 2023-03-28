@@ -47,6 +47,24 @@
   -o-appearance: none;
   appearance: none;
 }
+.cd-form input[type="button"] {
+  border: none;
+  background: #d75069;
+  border-radius: .25em;
+  padding: 16px 20px;
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
 
 .no-touch .cd-form input[type="submit"]:hover {
   background: #42a2e1;
