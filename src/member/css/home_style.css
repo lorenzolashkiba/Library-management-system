@@ -64,17 +64,21 @@
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+  transition: background 0.1s ease;
 }
 
 .no-touch .cd-form input[type="submit"]:hover {
   background: #42a2e1;
 }
 
-.cd-form input[type="submit"]:focus {
+.cd-form input[type="submit"]:hover {
   outline: none;
   background: #2b3e51;
 }
-
+.cd-form input[type="button"]:hover {
+  outline: none;
+  background: #2b3e51;
+}
 .cd-form input[type="submit"]:active {
   -webkit-transform: scale(0.9);
   -moz-transform: scale(0.9);

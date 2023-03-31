@@ -36,25 +36,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/custom_radio_button_style.css">
 		<link rel="stylesheet" type="text/css" href="../member/css/home_style.css">
 		<style>
-		.btn {
-			width: 100%;
-			border: none;
-			background: #d75069;
-			border-radius: .25em;
-			padding: 16px 20px;
-			margin-bottom: 20px;
-			color: #ffffff;
-			font-weight: bold;
-			font-family: "Open Sans", sans-serif;
-			font-size: 1.6rem;
-			float: right;
-			cursor: pointer;
-			
-		}	
-		.btn:hover{
-			background: #a23045;
-			
-		}
+	
 			#hide{
 				visibility: hidden;
 			}
